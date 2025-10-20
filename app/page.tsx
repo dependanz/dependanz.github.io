@@ -1,15 +1,5 @@
-import Header from "./ui/header"
-
-export function FrontPage() {
-
-  return (
-    <>
-      <h1 className={"text-1xl font-bold"}>
-        site in progress.
-      </h1>
-    </>
-  );
-}
+import Header from "@/app/ui/header"
+import FrontPage from "@/app/frontpage"
 
 export default function Home() {
   return (

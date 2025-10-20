@@ -1,3 +1,10 @@
+import Header from "../ui/header";
+
 export default function Blog() {
-  return <h3>blog in progress</h3>
+  return (
+      <div>
+        <Header pageName="blog"/>
+        <h3>blog in progress</h3>
+      </div>
+    )
 }

@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+:root {
+  --bg:#ffffff; --fg:#111;
+  --track:#e5e7eb; --thumb:#111; --ring:rgba(0,0,0,0.08);
+}
+:root[data-theme="dark"] {
+  --bg:#0b0f1a; --fg:#e6e6e6;
+  --track:#374151; --thumb:#fff; --ring:rgba(255,255,255,0.12);
+}
+html, body { background: var(--bg); color: var(--fg); }
+
+/* Enable smooth interpolation briefly when toggling */
+.theme-transition *, .theme-transition ::before, .theme-transition ::after {
+  transition: background-color .3s ease, color .3s ease, border-color .3s ease,
+              fill .3s ease, stroke .3s ease, box-shadow .3s ease;
+}

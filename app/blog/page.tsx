@@ -1,11 +1,52 @@
+import Link from "next/link";
+import Footer from "../ui/footer";
 import Header from "../ui/header";
+const fs = require('fs');
+const path = require('path');
 
-function BlogContainer() {
+async function BlogContainer() {
+
+  const postsDirectory = path.join(process.cwd(), 'app/blog/posts');
+  const fileNames = fs.readdirSync(postsDirectory);
+
+  const posts = await Promise.all(
+    fileNames
+      .filter(fileName => fileName.endsWith('.mdx'))
+      .map(async fileName => {
+        // const slug = fileName.replace(/\.mdx$/, '');
+        const slug = fileName
+        console.log(`@/app/blog/posts/${slug}`)
+        const module = await import(`@/app/blog/posts/${slug}`);
+        const meta = module.meta;
+        return {
+          slug,
+          ...meta
+        };
+      })
+  );
+
+  posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()); // Sort by date descending
+
   return (
-    <>
-      <h1 className="flex justify-center">test</h1>
-    </>
-  )
+    <div className="m-3">
+      <ul>
+        {posts.map(post => {
+          const href = `/blog/${post.slug.replace(/\.mdx$/, '')}`;
+          return (
+            <li
+              key={post.slug}
+              className="border border-[color:var(--ring)] rounded-md transition-shadow duration-300 shadow-[0_0_0_0_var(--shadow-inactive)] hover:shadow-[0_12px_30px_var(--shadow-active)]"
+            >
+              <Link href={href} className="block p-3">
+                <h3>{post.title}</h3>
+                <p className="text-sm text-gray-500">{post.date}</p>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
 }
 
 export default function Blog() {
@@ -16,6 +57,7 @@ export default function Blog() {
         <div className="flex justify-center items-center min-h-screen">
           <h3>blog in progress</h3>
         </div>
+        <Footer />
       </>
     )
 }

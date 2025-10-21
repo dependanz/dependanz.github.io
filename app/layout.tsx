@@ -1,4 +1,5 @@
 import '@/app/ui/global.css'
+import 'katex/dist/katex.min.css'
 import { robotoMono } from './ui/fonts'
 import AppProvider from "./providers";
 

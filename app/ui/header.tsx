@@ -19,7 +19,10 @@ function HeaderItem(
 export default function Header({pageName} : {pageName : string}) {
     // A static full-width header per page
     return (
-        <div className="w-full py-1 border-b-2 border-gray-400 flex justify-between items-center">
+        <div
+            className="w-full py-1 border-b-2 flex justify-between items-center"
+            style={{ borderColor: "var(--ring)" }}
+        >
             <div className="flex">
                 <HeaderItem itemName={'danzel serrano'} url={'/'} active={pageName == 'home'}></HeaderItem>
                 <div className="pl-4">|</div>

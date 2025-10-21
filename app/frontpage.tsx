@@ -16,7 +16,10 @@ function Publications() {
   );
 
   return (
-    <div className="mt-5 mx-[10%] px-[10px] flex flex-col justify-center border border-black rounded-lg pb-5">
+    <div
+      className="mt-5 mx-[10%] px-[10px] flex flex-col justify-center border rounded-lg pb-5"
+      style={{ borderColor: "var(--fg)" }}
+    >
       <div className="flex justify-center">
         <h3 className={`${boldRobotoMono.className} underline text-lg`}>
           Publications
@@ -56,7 +59,8 @@ export default function FrontPage() {
               width={150}
               height={150}
               alt="Picture of Danzel Serrano"
-              className="rounded-full border-2 border-black"
+              className="rounded-full border-2"
+              style={{ borderColor: "var(--fg)" }}
             />
           </div>
           <h1 className={"flex justify-center text-1xl font-bold"}>

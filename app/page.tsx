@@ -1,5 +1,6 @@
 import Header from "@/app/ui/header"
 import FrontPage from "@/app/frontpage"
+import Footer from "@/app/ui/footer"
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
       </h1> */}
       <Header pageName="home" />
       <FrontPage />
+      <Footer />
     </>
   )
 }

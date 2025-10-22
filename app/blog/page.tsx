@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Footer from "../ui/footer";
 import Header from "../ui/header";
-const fs = require('fs');
-const path = require('path');
+import fs from "fs";
+import path from "path";
 
 async function BlogContainer() {
 
@@ -13,11 +13,9 @@ async function BlogContainer() {
     fileNames
       .filter(fileName => fileName.endsWith('.mdx'))
       .map(async fileName => {
-        // const slug = fileName.replace(/\.mdx$/, '');
-        const slug = fileName
-        console.log(`@/app/blog/posts/${slug}`)
-        const module = await import(`@/app/blog/posts/${slug}`);
-        const meta = module.meta;
+        const slug = fileName.replace(/\.mdx$/, '');
+        const module = await import(`@/app/blog/posts/${slug}.mdx`);
+        const { meta } = module;
         return {
           slug,
           ...meta
@@ -31,7 +29,7 @@ async function BlogContainer() {
     <div className="m-3">
       <ul>
         {posts.map(post => {
-          const href = `/blog/${post.slug.replace(/\.mdx$/, '')}`;
+          const href = `/blog/${post.slug}`;
           return (
             <li
               key={post.slug}

@@ -2,6 +2,7 @@
 
 import React, { useMemo } from "react";
 import { useApp } from "@/app/providers";
+import Link from "next/link";
 
 const Footer: React.FC = () => {
   const { theme } = useApp();
@@ -27,7 +28,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer style={styles}>
-      <p className="text-sm">&copy; danzelserrano.com 2025 </p>
+      <p className="text-sm">&copy; <Link href={'/'}>danzelserrano.com</Link> 2025 </p>
     </footer>
   );
 };

@@ -28,6 +28,7 @@ export default function Header({pageName} : {pageName : string}) {
                 <div className="pl-4">|</div>
                 <HeaderItem itemName={'blog'} url={'/blog'} active={pageName == 'blog'}></HeaderItem>
                 <HeaderItem itemName={'cv'} url={'/cv'} active={pageName == 'cv'}></HeaderItem>
+                {/* <HeaderItem itemName={'links'} url={'/links'} active={pageName == 'links'}></HeaderItem> */}
             </div>
             <div className="flex space-x-4 pr-3">
                 <LightSwitch></LightSwitch>

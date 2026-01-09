@@ -11,7 +11,9 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <head></head>
+      <head>
+        <title>danzel serrano</title>
+      </head>
       <body className={`${robotoMono.className} antialiased`}>
         <AppProvider>{children}</AppProvider>
       </body>

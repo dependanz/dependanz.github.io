@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "clean": "node scripts/clean-next.mjs",
+    "predev": "node scripts/clean-next.mjs",
+    "prebuild": "node scripts/clean-next.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

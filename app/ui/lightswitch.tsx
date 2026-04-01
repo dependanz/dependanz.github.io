@@ -1,47 +1,21 @@
 "use client";
-import React, { useEffect, useMemo } from "react";
+import React from "react";
 import { useApp } from "@/app/providers";
 
-type Theme = "light" | "dark";
-
-const getInitial = (): Theme => {
-  if (typeof window === "undefined") return "light";
-  const saved = localStorage.getItem("theme") as Theme | null;
-  if (saved === "light" || saved === "dark") return saved;
-  return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-};
-
-const applyTheme = (t: Theme) => {
-  const html = document.documentElement;
-  html.classList.add("theme-transition");
-  (applyTheme as any)._tid && clearTimeout((applyTheme as any)._tid);
-  (applyTheme as any)._tid = setTimeout(() => html.classList.remove("theme-transition"), 350);
-  html.setAttribute("data-theme", t);
-  localStorage.setItem("theme", t);
+const sizes = {
+  trackW: 112,
+  trackH: 40,
+  pad: 4,
+  knobH: 30,
+  knobWLight: 62,
+  knobWDark: 54,
+  travelLight: 112 - 2 * 4 - 62,
+  travelDark: 112 - 2 * 4 - 54,
 };
 
 const LightSwitch: React.FC = () => {
   const {theme, setTheme} = useApp();
   const isDark = theme === "dark";
-
-  useEffect(() => {
-    const initial = getInitial();
-    setTheme(initial);
-    document.documentElement.setAttribute("data-theme", initial); // no transition on first paint
-  }, []);
-  useEffect(() => { if (typeof window !== "undefined") applyTheme(theme); }, [theme]);
-
-  const sizes = useMemo(() => {
-    const trackW = 112;  // room for oval + travel
-    const trackH = 40;
-    const pad = 4;
-    const knobH = 30;
-    const knobWLight = 62;  // fits "light"
-    const knobWDark  = 54;  // fits "dark"
-    const travelLight = trackW - 2 * pad - knobWLight;
-    const travelDark  = trackW - 2 * pad - knobWDark;
-    return { trackW, trackH, pad, knobH, knobWLight, knobWDark, travelLight, travelDark };
-  }, []);
 
   const toggle = () => setTheme(isDark ? "light" : "dark");
 

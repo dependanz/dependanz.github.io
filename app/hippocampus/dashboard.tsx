@@ -18,12 +18,14 @@ export function Dashboard({
   warnings,
   onDaily,
   onCram,
+  onManage,
   onQuiz
 }: {
   summaries: DeckSummary[];
   warnings: ValidationIssue[];
   onDaily: () => void;
   onCram: (deck: string) => void;
+  onManage: (deck: string) => void;
   onQuiz: () => void;
 }) {
   const totals = useMemo(
@@ -81,9 +83,14 @@ export function Dashboard({
                 <Chip label="total" value={s.total} />
               </div>
             </div>
-            <Btn onClick={() => onCram(s.deck)} style={{ fontSize: 13 }}>
-              Cram deck
-            </Btn>
+            <div style={{ display: "flex", gap: 8 }}>
+              <Btn onClick={() => onCram(s.deck)} style={{ fontSize: 13, flex: 1 }}>
+                Cram
+              </Btn>
+              <Btn onClick={() => onManage(s.deck)} style={{ fontSize: 13, flex: 1 }}>
+                Manage
+              </Btn>
+            </div>
           </Panel>
         ))}
       </div>

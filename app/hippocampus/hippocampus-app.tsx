@@ -17,13 +17,17 @@ import {
   practiceDeck,
   summarize,
   todayISO,
+  type Card,
+  type Deck,
   type Grade,
   type QueueCard,
   type Reviews
 } from "./core";
 import { getRepo, getUser, listRepos, type GitHubUser, type Repo } from "./lib/github";
-import { loadRepo, saveReviews, type LoadedRepo } from "./lib/repo";
+import { loadRepo, saveDeck, saveReviews, type DeckFileRef, type LoadedRepo } from "./lib/repo";
+import { addCard, collectIds, deleteCard, newCardId, updateCard } from "./lib/cards";
 import { Dashboard } from "./dashboard";
+import { DeckManager } from "./deck-manager";
 import { QuizSession, StudySession } from "./study";
 import { ACCENT, Btn, Panel } from "./ui";
 import LightSwitch from "@/app/ui/lightswitch";
@@ -31,7 +35,7 @@ import LightSwitch from "@/app/ui/lightswitch";
 const TOKEN_KEY = "hc_pat";
 const PAT_URL = "https://github.com/settings/personal-access-tokens/new";
 
-type View = "gate" | "picker" | "loading" | "invalid" | "dashboard" | "study" | "quiz";
+type View = "gate" | "picker" | "loading" | "invalid" | "dashboard" | "study" | "quiz" | "manage";
 
 export default function HippocampusApp() {
   const today = useMemo(() => todayISO(), []);
@@ -49,9 +53,16 @@ export default function HippocampusApp() {
   const [syncing, setSyncing] = useState(false);
   const [session, setSession] = useState<{ title: string; cards: QueueCard[] } | null>(null);
 
-  // Derived card list + deck summaries (recompute as reviews change).
-  const cards = useMemo(() => (loaded ? flattenDecks(loaded.validation.decks) : []), [loaded]);
-  const summaries = useMemo(() => (loaded ? summarize(loaded.validation.decks, reviews, today) : []), [loaded, reviews, today]);
+  // Live, mutable deck data (authoring edits this; reloaded from loadRepo on repo open).
+  const [deckFiles, setDeckFiles] = useState<DeckFileRef[]>([]);
+  const [manageDeckPath, setManageDeckPath] = useState<string | null>(null);
+  const [savingDeck, setSavingDeck] = useState(false);
+
+  // Derived deck list + cards + summaries (recompute as decks or reviews change).
+  const decks = useMemo(() => deckFiles.map((f) => f.deck), [deckFiles]);
+  const cards = useMemo(() => flattenDecks(decks), [decks]);
+  const summaries = useMemo(() => summarize(decks, reviews, today), [decks, reviews, today]);
+  const allIds = useMemo(() => collectIds(decks), [decks]); // for generating unique new-card ids
 
   // --- auth ---------------------------------------------------------------
   const signIn = useCallback(async (raw: string) => {
@@ -82,6 +93,8 @@ export default function HippocampusApp() {
     setUser(null);
     setRepos([]);
     setLoaded(null);
+    setDeckFiles([]);
+    setManageDeckPath(null);
     setReviews({});
     setReviewsSha(undefined);
     setDirty(0);
@@ -105,6 +118,8 @@ export default function HippocampusApp() {
       try {
         const result = await loadRepo(token, repo);
         setLoaded(result);
+        setDeckFiles(result.deckFiles);
+        setManageDeckPath(null);
         setReviews(result.reviews);
         setReviewsSha(result.reviewsSha);
         setDirty(0);
@@ -177,6 +192,59 @@ export default function HippocampusApp() {
     }
   }, [loaded, dirty, token, reviews, reviewsSha]);
 
+  // --- deck authoring -----------------------------------------------------
+  // Mutate a deck in memory, then re-serialize + commit its file. Throws on failure so the editor
+  // keeps the form open and shows the error.
+  const persistDeck = useCallback(
+    async (deckPath: string, mutate: (deck: Deck) => Deck, summary: string) => {
+      if (!loaded) return;
+      const idx = deckFiles.findIndex((f) => f.path === deckPath);
+      if (idx < 0) return;
+      const ref = deckFiles[idx];
+      const updatedDeck = mutate(ref.deck);
+      setSavingDeck(true);
+      setError(null);
+      try {
+        const newSha = await saveDeck(token, loaded.repo, ref, updatedDeck, summary);
+        setDeckFiles((prev) => prev.map((f, i) => (i === idx ? { ...f, deck: updatedDeck, sha: newSha } : f)));
+      } catch (err) {
+        setError(`Save failed: ${(err as Error).message}`);
+        throw err;
+      } finally {
+        setSavingDeck(false);
+      }
+    },
+    [loaded, deckFiles, token]
+  );
+
+  const saveCard = useCallback(
+    (deckPath: string, card: Card, isNew: boolean) => {
+      // New cards arrive with an empty id from the editor; mint a globally-unique one here.
+      const ref = deckFiles.find((f) => f.path === deckPath);
+      const finalCard = isNew && ref ? { ...card, id: newCardId(ref.deck.deck, allIds) } : card;
+      return persistDeck(
+        deckPath,
+        (deck) => (isNew ? addCard(deck, finalCard) : updateCard(deck, finalCard)),
+        isNew ? "add card" : "edit card"
+      );
+    },
+    [persistDeck, deckFiles, allIds]
+  );
+  const removeCard = useCallback(
+    (deckPath: string, id: string) => persistDeck(deckPath, (deck) => deleteCard(deck, id), "delete card"),
+    [persistDeck]
+  );
+  const openManage = useCallback(
+    (deckId: string) => {
+      const ref = deckFiles.find((f) => f.deck.deck === deckId);
+      if (ref) {
+        setManageDeckPath(ref.path);
+        setView("manage");
+      }
+    },
+    [deckFiles]
+  );
+
   // --- render -------------------------------------------------------------
   return (
     <div style={{ maxWidth: 760, margin: "0 auto", padding: "24px 16px 96px" }}>
@@ -207,9 +275,23 @@ export default function HippocampusApp() {
           warnings={loaded.validation.issues.filter((i) => i.level === "warning")}
           onDaily={startDaily}
           onCram={startCram}
+          onManage={openManage}
           onQuiz={() => setView("quiz")}
         />
       )}
+      {view === "manage" &&
+        (() => {
+          const ref = deckFiles.find((f) => f.path === manageDeckPath);
+          return ref ? (
+            <DeckManager
+              deckRef={ref}
+              saving={savingDeck}
+              onSaveCard={(card, isNew) => saveCard(ref.path, card, isNew)}
+              onDeleteCard={(id) => removeCard(ref.path, id)}
+              onBack={() => setView("dashboard")}
+            />
+          ) : null;
+        })()}
       {view === "study" && session && (
         <StudySession cards={session.cards} title={session.title} onGrade={onGrade} onExit={() => setView("dashboard")} />
       )}

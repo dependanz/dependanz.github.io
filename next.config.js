@@ -18,5 +18,11 @@ module.exports = async function () {
     images: {
       unoptimized: true,
     },
+    // kuromoji (used by /hippocampus for offline Japanese readings) has a browser build that
+    // conditionally requires Node's `fs`/`path`; stub them so the client bundle compiles.
+    webpack: (config) => {
+      config.resolve.fallback = { ...config.resolve.fallback, fs: false, path: false };
+      return config;
+    },
   });
 };

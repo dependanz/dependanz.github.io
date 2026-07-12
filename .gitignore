@@ -5,6 +5,9 @@ node_modules/
 .next/
 out/
 
+# kuromoji dictionary — regenerated from node_modules by scripts/copy-kuromoji-dict.mjs (postinstall)
+public/kuromoji-dict/
+
 # Optional npm cache directory
 .npm/
 

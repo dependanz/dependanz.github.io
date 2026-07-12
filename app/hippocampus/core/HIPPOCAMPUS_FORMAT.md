@@ -4,7 +4,7 @@ This is the canonical format a repository must follow to be usable by **Hippocam
 sign-in-with-GitHub, bring-your-own-repo flashcard front-end. Any repo matching this layout can be
 opened, validated, studied, and have its progress written back.
 
-`dependanz/digicoach` is the reference implementation (this very folder).
+The vendored `hippocampus-core` engine is the reference implementation of this format.
 
 ## Repo layout
 

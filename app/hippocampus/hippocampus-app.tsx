@@ -285,7 +285,12 @@ function Gate({ busy, onSubmit }: { busy: boolean; onSubmit: (t: string) => void
     <div style={{ marginTop: 32 }}>
       <p style={{ fontSize: 15, lineHeight: 1.7, marginBottom: 20, opacity: 0.85 }}>
         A spaced-repetition study front-end for <em>your own</em> GitHub repos. Point it at any repo that follows the{" "}
-        <a href="https://github.com/dependanz/digicoach/blob/main/learning/HIPPOCAMPUS_FORMAT.md" style={{ color: ACCENT }}>
+        <a
+          href="https://github.com/dependanz/dependanz.github.io/blob/main/app/hippocampus/core/HIPPOCAMPUS_FORMAT.md"
+          target="_blank"
+          rel="noreferrer"
+          style={{ color: ACCENT }}
+        >
           Hippocampus deck format
         </a>{" "}
         and it becomes a review dashboard — progress is committed straight back to the repo, so it syncs across devices.

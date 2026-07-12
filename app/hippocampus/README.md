@@ -5,10 +5,10 @@ A **bring-your-own-repo** spaced-repetition study dashboard, served statically a
 follows the Hippocampus deck format, and it becomes a review dashboard whose progress is committed
 straight back to that repo (so it syncs across devices).
 
-It implements `core/BUILD_BRIEF.md` from
-[`dependanz/digicoach`](https://github.com/dependanz/digicoach) — the **Working MVP** slice:
-auth → repo pick → validate → study loop (daily queue / cram / quiz) → commit `reviews.json`.
-The three.js paper-storm hero and PWA install from the brief are intentionally deferred.
+It implements the **Working MVP** slice of the Hippocampus build brief (from the private
+`dependanz/digicoach` source): auth → repo pick → validate → study loop (daily queue / cram /
+quiz) → commit `reviews.json`. The three.js paper-storm hero and PWA install from the brief are
+intentionally deferred.
 
 ## Layout
 

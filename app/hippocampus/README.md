@@ -14,7 +14,7 @@ The three.js paper-storm hero and PWA install from the brief are intentionally d
 
 ```
 app/hippocampus/
-  page.tsx              # server route: site <Header> + the client app
+  page.tsx              # standalone route: renders only the client app (no site navbar)
   hippocampus-app.tsx   # orchestrator: auth gate, repo picker, validation, sync, view routing
   dashboard.tsx         # deck tiles (core.summarize) + daily/cram/quiz entry points
   study.tsx             # StudySession (flip + grade) and QuizSession (multiple choice)

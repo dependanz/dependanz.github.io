@@ -26,6 +26,7 @@ import { loadRepo, saveReviews, type LoadedRepo } from "./lib/repo";
 import { Dashboard } from "./dashboard";
 import { QuizSession, StudySession } from "./study";
 import { ACCENT, Btn, Panel } from "./ui";
+import LightSwitch from "@/app/ui/lightswitch";
 
 const TOKEN_KEY = "hc_pat";
 const PAT_URL = "https://github.com/settings/personal-access-tokens/new";
@@ -255,24 +256,25 @@ function Header({
           </span>
         )}
       </div>
-      {user && (
-        <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13 }}>
-          {repo && (
-            <Btn onClick={onSync} disabled={dirty === 0 || syncing} variant={dirty > 0 ? "primary" : "ghost"} style={{ padding: "6px 12px" }}>
-              {syncing ? "Syncing…" : dirty > 0 ? `Sync (${dirty})` : "Synced"}
-            </Btn>
-          )}
-          {repo && (
-            <Btn onClick={onChangeRepo} style={{ padding: "6px 12px" }}>
-              Change repo
-            </Btn>
-          )}
-          <span style={{ opacity: 0.7 }}>@{user.login}</span>
+      <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, flexWrap: "wrap" }}>
+        {user && repo && (
+          <Btn onClick={onSync} disabled={dirty === 0 || syncing} variant={dirty > 0 ? "primary" : "ghost"} style={{ padding: "6px 12px" }}>
+            {syncing ? "Syncing…" : dirty > 0 ? `Sync (${dirty})` : "Synced"}
+          </Btn>
+        )}
+        {user && repo && (
+          <Btn onClick={onChangeRepo} style={{ padding: "6px 12px" }}>
+            Change repo
+          </Btn>
+        )}
+        {user && <span style={{ opacity: 0.7 }}>@{user.login}</span>}
+        {user && (
           <Btn onClick={onSignOut} style={{ padding: "6px 12px" }}>
             Sign out
           </Btn>
-        </div>
-      )}
+        )}
+        <LightSwitch />
+      </div>
     </div>
   );
 }

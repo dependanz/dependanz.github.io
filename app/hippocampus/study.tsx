@@ -129,11 +129,12 @@ export function StudySession({
         }}
       >
         <div style={{ fontSize: 44, lineHeight: 1.3, wordBreak: "break-word" }}>{card.front}</div>
-        {card.reading && <div style={{ fontSize: 18, opacity: 0.7, marginTop: 8 }}>{card.reading}</div>}
 
         {flipped ? (
           <>
-            <div style={{ height: 1, background: "var(--ring)", margin: "24px auto", width: "60%" }} />
+            {/* reading is part of the answer (it's the whole point for kana/letter cards), so it only appears on flip */}
+            {card.reading && <div style={{ fontSize: 20, opacity: 0.75, marginTop: 10 }}>{card.reading}</div>}
+            <div style={{ height: 1, background: "var(--ring)", margin: "20px auto", width: "60%" }} />
             <div style={{ fontSize: 24, fontWeight: 600 }}>{card.meaning}</div>
             {card.romaji && <div style={{ fontSize: 14, opacity: 0.6, marginTop: 4, fontStyle: "italic" }}>{card.romaji}</div>}
             <Breakdown card={card} />
@@ -223,8 +224,8 @@ export function QuizSession({ cards, lang, onExit }: { cards: Card[]; lang?: str
       </div>
 
       <div style={{ textAlign: "center", marginBottom: 24 }}>
+        {/* prompt only — the reading would give the answer away for kana/letter cards */}
         <div style={{ fontSize: 44 }}>{q.prompt}</div>
-        {q.reading && <div style={{ fontSize: 16, opacity: 0.7, marginTop: 6 }}>{q.reading}</div>}
       </div>
 
       <div style={{ display: "grid", gap: 10, maxWidth: 460, margin: "0 auto" }}>

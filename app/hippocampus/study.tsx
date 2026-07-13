@@ -91,10 +91,10 @@ export function StudySession({
       <div style={{ textAlign: "center", padding: "48px 0" }}>
         <p style={{ fontSize: 22, marginBottom: 8 }}>Session complete</p>
         <p style={{ opacity: 0.7, marginBottom: 20 }}>
-          Reviewed {cards.length} card{cards.length === 1 ? "" : "s"}. Sync to save your progress.
+          Reviewed {cards.length} card{cards.length === 1 ? "" : "s"}. Your progress saves automatically.
         </p>
         <Btn variant="primary" onClick={onExit}>
-          Back to dashboard
+          Save &amp; return
         </Btn>
       </div>
     );

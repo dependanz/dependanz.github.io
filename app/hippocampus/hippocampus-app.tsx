@@ -192,6 +192,13 @@ export default function HippocampusApp() {
     }
   }, [loaded, dirty, token, reviews, reviewsSha]);
 
+  // Auto-save pending progress whenever a study session ends. Batches to one commit per session
+  // (not per card), so you never have to press Sync manually. `sync` no-ops when nothing is pending.
+  const endSession = useCallback(() => {
+    setView("dashboard");
+    void sync();
+  }, [sync]);
+
   // --- deck authoring -----------------------------------------------------
   // Mutate a deck in memory, then re-serialize + commit its file. Throws on failure so the editor
   // keeps the form open and shows the error.
@@ -254,9 +261,20 @@ export default function HippocampusApp() {
         dirty={dirty}
         syncing={syncing}
         onSync={sync}
-        onChangeRepo={() => setView("picker")}
-        onSignOut={signOut}
-        onHome={() => loaded && setView("dashboard")}
+        onChangeRepo={() => {
+          void sync();
+          setView("picker");
+        }}
+        onSignOut={async () => {
+          if (dirty > 0) await sync();
+          signOut();
+        }}
+        onHome={() => {
+          if (loaded) {
+            void sync();
+            setView("dashboard");
+          }
+        }}
       />
 
       {error && (
@@ -293,7 +311,7 @@ export default function HippocampusApp() {
           ) : null;
         })()}
       {view === "study" && session && (
-        <StudySession cards={session.cards} title={session.title} onGrade={onGrade} onExit={() => setView("dashboard")} />
+        <StudySession cards={session.cards} title={session.title} onGrade={onGrade} onExit={endSession} />
       )}
       {view === "quiz" && loaded && <QuizSession cards={cards} onExit={() => setView("dashboard")} />}
     </div>

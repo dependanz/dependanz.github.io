@@ -29,3 +29,6 @@ Thumbs.db
 # Editor directories and files
 .vscode/
 .idea/
+
+# Claude Code — local agent tooling / machine-specific settings (public repo: keep out)
+.claude/

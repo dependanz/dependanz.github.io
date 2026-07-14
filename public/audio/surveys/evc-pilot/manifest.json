@@ -1,0 +1,183 @@
+{
+  "survey": "evc-pilot",
+  "generated_at": "2026-07-01T22:45:24.043621+00:00",
+  "announce": true,
+  "methods": [
+    "m1",
+    "m2"
+  ],
+  "emotions": [
+    "happy",
+    "sad"
+  ],
+  "utterances": {
+    "u1": "The stone walls of the old house kept the rooms cool.",
+    "u2": "She placed the folders on the desk by the window.",
+    "u3": "They walked along the road until it turned to gravel."
+  },
+  "stimuli": [
+    {
+      "id": "m1_happy_u1",
+      "method": "m1",
+      "emotion": "happy",
+      "utterance": "u1",
+      "text": "The stone walls of the old house kept the rooms cool.",
+      "file": "/audio/surveys/evc-pilot/m1_happy_u1.mp3"
+    },
+    {
+      "id": "m1_happy_u2",
+      "method": "m1",
+      "emotion": "happy",
+      "utterance": "u2",
+      "text": "She placed the folders on the desk by the window.",
+      "file": "/audio/surveys/evc-pilot/m1_happy_u2.mp3"
+    },
+    {
+      "id": "m1_happy_u3",
+      "method": "m1",
+      "emotion": "happy",
+      "utterance": "u3",
+      "text": "They walked along the road until it turned to gravel.",
+      "file": "/audio/surveys/evc-pilot/m1_happy_u3.mp3"
+    },
+    {
+      "id": "m1_sad_u1",
+      "method": "m1",
+      "emotion": "sad",
+      "utterance": "u1",
+      "text": "The stone walls of the old house kept the rooms cool.",
+      "file": "/audio/surveys/evc-pilot/m1_sad_u1.mp3"
+    },
+    {
+      "id": "m1_sad_u2",
+      "method": "m1",
+      "emotion": "sad",
+      "utterance": "u2",
+      "text": "She placed the folders on the desk by the window.",
+      "file": "/audio/surveys/evc-pilot/m1_sad_u2.mp3"
+    },
+    {
+      "id": "m1_sad_u3",
+      "method": "m1",
+      "emotion": "sad",
+      "utterance": "u3",
+      "text": "They walked along the road until it turned to gravel.",
+      "file": "/audio/surveys/evc-pilot/m1_sad_u3.mp3"
+    },
+    {
+      "id": "m2_happy_u1",
+      "method": "m2",
+      "emotion": "happy",
+      "utterance": "u1",
+      "text": "The stone walls of the old house kept the rooms cool.",
+      "file": "/audio/surveys/evc-pilot/m2_happy_u1.mp3"
+    },
+    {
+      "id": "m2_happy_u2",
+      "method": "m2",
+      "emotion": "happy",
+      "utterance": "u2",
+      "text": "She placed the folders on the desk by the window.",
+      "file": "/audio/surveys/evc-pilot/m2_happy_u2.mp3"
+    },
+    {
+      "id": "m2_happy_u3",
+      "method": "m2",
+      "emotion": "happy",
+      "utterance": "u3",
+      "text": "They walked along the road until it turned to gravel.",
+      "file": "/audio/surveys/evc-pilot/m2_happy_u3.mp3"
+    },
+    {
+      "id": "m2_sad_u1",
+      "method": "m2",
+      "emotion": "sad",
+      "utterance": "u1",
+      "text": "The stone walls of the old house kept the rooms cool.",
+      "file": "/audio/surveys/evc-pilot/m2_sad_u1.mp3"
+    },
+    {
+      "id": "m2_sad_u2",
+      "method": "m2",
+      "emotion": "sad",
+      "utterance": "u2",
+      "text": "She placed the folders on the desk by the window.",
+      "file": "/audio/surveys/evc-pilot/m2_sad_u2.mp3"
+    },
+    {
+      "id": "m2_sad_u3",
+      "method": "m2",
+      "emotion": "sad",
+      "utterance": "u3",
+      "text": "They walked along the road until it turned to gravel.",
+      "file": "/audio/surveys/evc-pilot/m2_sad_u3.mp3"
+    }
+  ],
+  "references": [
+    {
+      "id": "neutral_u1",
+      "emotion": "neutral",
+      "utterance": "u1",
+      "text": "The stone walls of the old house kept the rooms cool.",
+      "file": "/audio/surveys/evc-pilot/neutral_u1.mp3"
+    },
+    {
+      "id": "neutral_u2",
+      "emotion": "neutral",
+      "utterance": "u2",
+      "text": "She placed the folders on the desk by the window.",
+      "file": "/audio/surveys/evc-pilot/neutral_u2.mp3"
+    },
+    {
+      "id": "neutral_u3",
+      "emotion": "neutral",
+      "utterance": "u3",
+      "text": "They walked along the road until it turned to gravel.",
+      "file": "/audio/surveys/evc-pilot/neutral_u3.mp3"
+    }
+  ],
+  "ab_pairs": [
+    {
+      "id": "ab_happy_u1",
+      "utterance": "u1",
+      "emotion": "happy",
+      "a": "m1_happy_u1",
+      "b": "m2_happy_u1"
+    },
+    {
+      "id": "ab_happy_u2",
+      "utterance": "u2",
+      "emotion": "happy",
+      "a": "m1_happy_u2",
+      "b": "m2_happy_u2"
+    },
+    {
+      "id": "ab_happy_u3",
+      "utterance": "u3",
+      "emotion": "happy",
+      "a": "m1_happy_u3",
+      "b": "m2_happy_u3"
+    },
+    {
+      "id": "ab_sad_u1",
+      "utterance": "u1",
+      "emotion": "sad",
+      "a": "m1_sad_u1",
+      "b": "m2_sad_u1"
+    },
+    {
+      "id": "ab_sad_u2",
+      "utterance": "u2",
+      "emotion": "sad",
+      "a": "m1_sad_u2",
+      "b": "m2_sad_u2"
+    },
+    {
+      "id": "ab_sad_u3",
+      "utterance": "u3",
+      "emotion": "sad",
+      "a": "m1_sad_u3",
+      "b": "m2_sad_u3"
+    }
+  ]
+}

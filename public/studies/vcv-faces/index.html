@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>Talking Face User Study</title>
-  <script type="module" crossorigin src="./assets/index-DXG1-VjA.js"></script>
+  <script type="module" crossorigin src="./assets/index-Ct9Cls1-.js"></script>
   <link rel="stylesheet" crossorigin href="./assets/index-C245eiSi.css">
 </head>
 
@@ -34,39 +34,9 @@
       <button id="sc-continue" disabled>Start the study</button>
     </div>
 
-    <!-- Welcome & Instructions -->
+    <!-- Screen 1: Title / task intro -->
     <div id="welcome">
       <h1>Talking Face Animation Study</h1>
-
-      <div class="text-container">
-        <h2 style="text-align:center">Information &amp; Consent</h2>
-        <p>
-          You are invited to take part in a research study conducted by researchers at the
-          <b>New Jersey Institute of Technology (NJIT)</b>, on how people perceive
-          computer-generated talking-face animations.
-        </p>
-        <p>
-          If you agree, you will watch several short <b>looping</b> videos of <b>two animated 3D faces
-          side by side</b>, each speaking the same audio, and for each you will rate which side's mouth
-          movements better match what you hear. The study takes about <b>8&ndash;10 minutes</b>.
-        </p>
-        <p>
-          <b>Participation is voluntary.</b> You may stop at any time by closing the window.
-          <b>Risks are minimal</b> &mdash; no more than ordinary computer use (possible mild eye strain
-          or fatigue). There is no direct benefit to you other than the compensation shown on the
-          recruitment page.
-        </p>
-        <p>
-          <b>Privacy.</b> We do <b>not</b> collect your name, email, or any identifying information, and
-          the study does <b>not</b> use your camera or microphone. We record only your ratings, response
-          times, and the anonymous participant code from the recruitment platform (used only to pay you).
-          Results are stored securely and reported only in aggregate.
-        </p>
-        <p style="font-size:13px; color:#b0b0b0;">
-          Questions: ds867@njit.edu. For questions about your rights as a research participant, contact
-          the NJIT IRB (irb@njit.edu).
-        </p>
-      </div>
 
       <div class="text-container">
         <h2 style="text-align:center">Your Task</h2>
@@ -102,8 +72,51 @@
 
       <div class="text-container">
         <p style="text-align:center;">
-          By clicking <b>START</b> below, you confirm that you are <b>at least 18 years old</b>, have read
-          the information above, and <b>agree to participate</b>.
+          The next two screens are a short <b>consent form</b> and a quick <b>sound check</b>
+          (please have your headphones ready) &mdash; then the study begins.
+        </p>
+      </div>
+      <button id="welcomeContinue">Continue</button>
+    </div>
+
+    <!-- Screen 2: Informed consent (mirrors the IRB-submitted consent form) -->
+    <div id="consent" class="hidden">
+      <h1>Information &amp; Consent</h1>
+
+      <div class="text-container">
+        <p>
+          You are invited to take part in a research study conducted by researchers at the
+          <b>New Jersey Institute of Technology (NJIT)</b>, on how people perceive
+          computer-generated talking-face animations.
+        </p>
+        <p>
+          If you agree, you will watch several short <b>looping</b> videos of <b>two animated 3D faces
+          side by side</b>, each speaking the same audio, and for each you will rate which side's mouth
+          movements better match what you hear. The study takes about <b>8&ndash;10 minutes</b>.
+        </p>
+        <p>
+          <b>Participation is voluntary.</b> You may stop at any time by closing the window.
+          <b>Risks are minimal</b> &mdash; no more than ordinary computer use (possible mild eye strain
+          or fatigue). There is no direct benefit to you other than the compensation shown on the
+          recruitment page.
+        </p>
+        <p>
+          <b>Privacy.</b> We do <b>not</b> collect your name, email, or any identifying information, and
+          the study does <b>not</b> use your camera or microphone. We record only your ratings, response
+          times, and the anonymous participant code from the recruitment platform (used only to pay you).
+          Results are stored securely and reported only in aggregate.
+        </p>
+        <p><b>Eligibility.</b> You must be at least 18 years old and a fluent English speaker.</p>
+        <p style="font-size:13px; color:#b0b0b0;">
+          Questions about the study: ds867@njit.edu. For questions about your rights as a research
+          participant, contact the NJIT Institutional Review Board (IRB) at irb@njit.edu.
+        </p>
+      </div>
+
+      <div class="text-container">
+        <p style="text-align:center;">
+          By clicking <b>I agree</b> below, you confirm that you are <b>at least 18 years old</b>, have
+          read the information above, and <b>agree to participate</b>.
         </p>
       </div>
       <button id="startButton">I agree &mdash; Continue to Sound Check</button>
@@ -161,7 +174,7 @@
     // Data sink: the Apps Script Web App /exec URL. Empty string = no saving (local/preview mode).
     // To collect data, set this to your deployed Apps Script URL — this file can be edited AFTER
     // building/deploying (it is not bundled), so no rebuild is needed to flip the study live.
-    window.STUDY_ENDPOINT = "https://script.google.com/macros/s/AKfycbziz77k9rODsR4t6Hpj63Hvl5S8nBZXjIf8wmwcT6XVoDnANfEUCUL7Fm3czVctBnRQ/exec";
+    window.STUDY_ENDPOINT = "https://script.google.com/macros/s/AKfycbwqiDBNT48FCm8onHqi9Crl-XOG012DK_cnNzty47BnI8t-SELVP-FJDHa2cOW3F-Py/exec";
     // Which study this deployment is: "vcv" (default) or "sentence". deploy.sh sets it per target.
     window.STUDY_MODE = "vcv";
     // Prolific completion URL (Prolific study -> "provide a link" -> completion URL, ends in ?cc=CODE).

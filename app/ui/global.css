@@ -193,3 +193,26 @@ html, body { background: var(--bg); color: var(--fg); }
 }
 .cite-tooltip p { margin: 0; }
 .cite-tooltip a { color: inherit; text-decoration: underline; }
+
+/* --- Interactive figures (app/blog/_figures) -------------------------------- */
+.blog-figure { margin: 1.75rem 0; }
+.blog-figure-missing {
+  border: 1px dashed #ef4444;
+  color: #ef4444;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+}
+.fig { border: 1px solid var(--ring); border-radius: 10px; padding: 12px 14px 14px; }
+.fig-svg { width: 100%; height: auto; display: block; cursor: crosshair; }
+.fig-grid { stroke: var(--ring); stroke-width: 1; }
+.fig-axislabel { fill: var(--fg); opacity: 0.55; font-size: 11px; }
+.fig-curve { stroke: var(--fg); stroke-width: 2.5; }
+.fig-target { stroke: var(--fg); stroke-width: 1.2; stroke-dasharray: 4 3; opacity: 0.5; }
+.fig-target-dot { fill: var(--fg); opacity: 0.65; }
+.fig-hover { stroke: var(--fg); stroke-width: 1; opacity: 0.35; }
+.fig-hover-dot { fill: var(--fg); }
+.fig-readout { font-size: 13px; margin-top: 8px; min-height: 2.6em; opacity: 0.85; }
+.fig-controls { display: flex; flex-wrap: wrap; gap: 12px 22px; margin-top: 6px; font-size: 12px; }
+.fig-controls label { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 180px; opacity: 0.85; }
+.fig-controls input[type="range"] { width: 100%; accent-color: var(--fg); }

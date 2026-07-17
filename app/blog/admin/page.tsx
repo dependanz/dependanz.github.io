@@ -11,6 +11,7 @@ import Header from "@/app/ui/header";
 import { useEffect, useState } from "react";
 import { checkVerifier, decryptJSON } from "../_drafts/crypto";
 import FootnoteHover from "../_drafts/footnote-hover";
+import Figures from "../_figures/figures";
 import { renderMarkdown } from "../_drafts/render";
 import { fetchEnc, fetchManifest, fetchVerifier } from "../_drafts/store";
 import type { DraftPayload, EncFile } from "../_drafts/types";
@@ -141,7 +142,8 @@ export default function BlogAdminPage() {
             </button>
             <div className="text-xs uppercase tracking-wide opacity-50 mb-2">unpublished draft — {open.payload.date}</div>
             <article className="blog-prose" dangerouslySetInnerHTML={{ __html: open.html }} />
-            <FootnoteHover key={open.payload.slug} />
+            <FootnoteHover key={`fn-${open.payload.slug}`} />
+            <Figures key={`fig-${open.payload.slug}`} />
           </>
         )}
       </div>

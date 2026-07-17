@@ -1,13 +1,16 @@
 /** @type {import('next').NextConfig | (() => Promise<import('next').NextConfig>)} */
 module.exports = async function () {
   const { default: createMDX } = await import("@next/mdx");
+  const { default: remarkGfm } = await import("remark-gfm");
   const { default: remarkMath } = await import("remark-math");
   const { default: rehypeKatex } = await import("rehype-katex");
 
   const withMDX = createMDX({
     extension: /\.mdx?$/,
     options: {
-      remarkPlugins: [remarkMath],
+      // remark-gfm gives footnotes (used for [^n] citations), tables, and strikethrough — so a
+      // published post matches its draft preview (which uses the same plugins in render.ts).
+      remarkPlugins: [remarkGfm, remarkMath],
       rehypePlugins: [rehypeKatex],
     },
   });

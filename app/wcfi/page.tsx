@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 export default function WCFIFrontPage() {
     return (
         <div>
@@ -8,7 +6,7 @@ export default function WCFIFrontPage() {
             <br /><br />
             Jesus loves you
             <br /><br />
-            <Link href={'wcfi.org'}>wcfi.org</Link>
+            <a href="https://wcfi.org" target="_blank" rel="noreferrer">wcfi.org</a>
         </div>
     )
 }

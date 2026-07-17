@@ -23,12 +23,13 @@ async function BlogContainer() {
       })
   );
 
-  posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()); // Sort by date descending
+  const published = posts.filter((post) => post.published !== false); // hide drafts (published: false)
+  published.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()); // Sort by date descending
 
   return (
     <div className="m-3">
       <ul>
-        {posts.map(post => {
+        {published.map(post => {
           const href = `/blog/${post.slug}`;
           return (
             <li

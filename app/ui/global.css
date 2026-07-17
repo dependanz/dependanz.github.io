@@ -28,3 +28,168 @@ html, body { background: var(--bg); color: var(--fg); }
 .equation {
   justify-content: center;
 }
+
+/* --- Blog post typography ---------------------------------------------------
+   Shared by the draft viewer (/blog/admin) and published posts (/blog/[slug]),
+   so a draft previews exactly as it will publish. Inherits the site's monospace
+   body font; all colors are theme vars so it works in light and dark. */
+.blog-prose {
+  font-size: 15px;
+  line-height: 1.72;
+  color: var(--fg);
+  overflow-wrap: break-word;
+}
+.blog-prose > :first-child { margin-top: 0; }
+.blog-prose > :last-child { margin-bottom: 0; }
+
+.blog-prose h1 {
+  font-size: 1.85rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  letter-spacing: -0.01em;
+  margin: 0.25rem 0 1.75rem;
+}
+.blog-prose h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 2.25rem 0 0.85rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--ring);
+}
+.blog-prose h3 {
+  font-size: 1.08rem;
+  font-weight: 700;
+  margin: 1.75rem 0 0.5rem;
+}
+.blog-prose p { margin: 0 0 1.15rem; }
+
+.blog-prose ul, .blog-prose ol { margin: 0 0 1.15rem; padding-left: 1.6rem; }
+.blog-prose ul { list-style: disc; }
+.blog-prose ol { list-style: decimal; }
+.blog-prose li { margin: 0.3rem 0; }
+.blog-prose li::marker { opacity: 0.5; }
+
+.blog-prose a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+.blog-prose a:hover { opacity: 0.65; }
+
+.blog-prose strong { font-weight: 700; }
+.blog-prose em { font-style: italic; }
+
+.blog-prose code {
+  font-family: inherit;
+  font-size: 0.88em;
+  background: var(--track);
+  padding: 0.12em 0.38em;
+  border-radius: 4px;
+}
+.blog-prose pre {
+  background: var(--track);
+  border: 1px solid var(--ring);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  margin: 0 0 1.15rem;
+  line-height: 1.55;
+}
+.blog-prose pre code { background: none; padding: 0; font-size: 0.85em; }
+
+.blog-prose blockquote {
+  border-left: 3px solid var(--ring);
+  padding: 0.15rem 0 0.15rem 1rem;
+  margin: 0 0 1.15rem;
+  opacity: 0.85;
+}
+.blog-prose hr { border: 0; border-top: 1px solid var(--ring); margin: 2rem 0; }
+
+/* Display equations: vertical breathing room + scroll wide ones instead of
+   overflowing the page (the ease-factor formula is wide on mobile). */
+.blog-prose .katex-display {
+  margin: 1.4rem 0;
+  padding: 0.25rem 2px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.blog-prose table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: 0 0 1.15rem;
+  font-size: 0.92em;
+}
+.blog-prose th, .blog-prose td { border: 1px solid var(--ring); padding: 0.4rem 0.65rem; text-align: left; }
+.blog-prose thead th { border-bottom-width: 2px; }
+
+/* --- Citations (GFM footnotes, styled like a references list) ---------------
+   Inline markers render as bracketed [n]; the footnotes block becomes a
+   "References" section; FootnoteHover shows the reference on hover. */
+.blog-prose sup a[data-footnote-ref] {
+  font-size: 0.72em;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--fg);
+  padding: 0 1px;
+  cursor: pointer;
+}
+.blog-prose sup a[data-footnote-ref]::before { content: "["; opacity: 0.65; }
+.blog-prose sup a[data-footnote-ref]::after { content: "]"; opacity: 0.65; }
+.blog-prose sup a[data-footnote-ref]:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+.blog-prose .footnotes {
+  margin-top: 2.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--ring);
+  font-size: 0.9em;
+}
+.blog-prose .footnotes::before {
+  content: "References";
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+/* GFM emits a visually-hidden <h2>Footnotes</h2> that relies on Tailwind's .sr-only, which v4
+   doesn't generate here (the class only appears in runtime HTML). Hide it ourselves — we show a
+   "References" heading via ::before instead; the label stays in the DOM for screen readers. */
+.blog-prose .footnotes #footnote-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+.blog-prose .footnotes ol { padding-left: 1.6rem; margin: 0; }
+.blog-prose .footnotes li { margin: 0.55rem 0; line-height: 1.55; }
+.blog-prose .footnotes li p { margin: 0; }
+.blog-prose .footnotes .data-footnote-backref { text-decoration: none; margin-left: 0.35rem; opacity: 0.5; }
+.blog-prose .footnotes .data-footnote-backref:hover { opacity: 1; }
+
+/* Hover card for a citation, positioned + filled by FootnoteHover. */
+.cite-tooltip {
+  position: fixed;
+  z-index: 50;
+  max-width: 360px;
+  font-size: 13px;
+  line-height: 1.5;
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--ring);
+  border-radius: 8px;
+  padding: 10px 12px;
+  box-shadow: 0 12px 30px var(--shadow-active);
+  pointer-events: none;
+}
+.cite-tooltip p { margin: 0; }
+.cite-tooltip a { color: inherit; text-decoration: underline; }

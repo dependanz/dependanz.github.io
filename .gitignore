@@ -8,6 +8,10 @@ out/
 # kuromoji dictionary — regenerated from node_modules by scripts/copy-kuromoji-dict.mjs (postinstall)
 public/kuromoji-dict/
 
+# Plaintext blog drafts — NEVER commit these. Only their encrypted form (public/drafts/*.enc.json,
+# produced by scripts/encrypt-drafts.mjs) is committed and deployed.
+drafts-src/
+
 # Optional npm cache directory
 .npm/
 

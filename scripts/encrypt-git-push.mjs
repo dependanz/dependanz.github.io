@@ -1,7 +1,7 @@
-// npm run git-push — seal protected content, then commit + push everything as you, in one step.
+// npm run encrypt-git-push — seal protected content, then commit + push everything as you, in one step.
 //
-//   npm run git-push                 # commits with the default message
-//   npm run git-push -- "some note"  # optional one-off message override
+//   npm run encrypt-git-push                 # commits with the default message
+//   npm run encrypt-git-push -- "some note"  # optional one-off message override
 //
 // Steps: (1) node scripts/encrypt.mjs (idempotent — no-op if nothing changed), (2) git add -A,
 // (3) commit with a fixed message, (4) git push. Skips the commit + push when the tree is clean.
@@ -35,6 +35,6 @@ try {
   git("push");
   console.log("\nDone — sealed, committed, and pushed.");
 } catch (err) {
-  console.error(`\ngit-push failed: ${err.message}`);
+  console.error(`\nencrypt-git-push failed: ${err.message}`);
   process.exit(1);
 }

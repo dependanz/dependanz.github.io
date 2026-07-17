@@ -12,7 +12,7 @@
     "start": "next start",
     "encrypt": "node scripts/encrypt.mjs",
     "encrypt-drafts": "node scripts/encrypt.mjs",
-    "git-push": "node scripts/git-push.mjs",
+    "encrypt-git-push": "node scripts/encrypt-git-push.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

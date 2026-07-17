@@ -9,8 +9,11 @@ out/
 public/kuromoji-dict/
 
 # Plaintext blog drafts — NEVER commit these. Only their encrypted form (public/drafts/*.enc.json,
-# produced by scripts/encrypt-drafts.mjs) is committed and deployed.
+# produced by scripts/encrypt.mjs) is committed and deployed.
 drafts-src/
+
+# Master key for encrypting protected content — NEVER commit. Local to this machine only.
+.master-key
 
 # Optional npm cache directory
 .npm/

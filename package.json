@@ -10,7 +10,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "encrypt-drafts": "node scripts/encrypt-drafts.mjs",
+    "encrypt": "node scripts/encrypt.mjs",
+    "encrypt-drafts": "node scripts/encrypt.mjs",
+    "git-push": "node scripts/git-push.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

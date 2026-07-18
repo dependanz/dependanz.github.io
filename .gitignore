@@ -39,3 +39,7 @@ Thumbs.db
 
 # Claude Code — local agent tooling / machine-specific settings (public repo: keep out)
 .claude/
+
+# Server env files (VPS holds real secrets locally, never committed)
+.env
+.env.production

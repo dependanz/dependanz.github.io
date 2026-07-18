@@ -17,7 +17,10 @@ module.exports = async function () {
 
   return withMDX({
     pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
-    output: "export",
+    // No `output: "export"` — this site now runs as a real Node server (`next start`) on a VPS,
+    // which unlocks server components, API routes, and server-held secrets. (On GitHub Pages this
+    // was a static export.) `images.unoptimized` is kept so we don't need `sharp` on the box yet;
+    // drop it later to enable server-side next/image optimization.
     images: {
       unoptimized: true,
     },

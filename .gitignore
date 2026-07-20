@@ -43,3 +43,7 @@ Thumbs.db
 # Server env files (VPS holds real secrets locally, never committed)
 .env
 .env.production
+
+# Heavy study/video media is served by Caddy from /srv/www (uploaded via rsync, not committed)
+public/studies/
+public/video/

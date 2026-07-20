@@ -4,9 +4,8 @@
   "main": "index.js",
   "scripts": {
     "clean": "node scripts/clean-next.mjs",
-    "postinstall": "node scripts/copy-kuromoji-dict.mjs",
-    "predev": "node scripts/clean-next.mjs && node scripts/copy-kuromoji-dict.mjs",
-    "prebuild": "node scripts/clean-next.mjs && node scripts/copy-kuromoji-dict.mjs",
+    "predev": "node scripts/clean-next.mjs",
+    "prebuild": "node scripts/clean-next.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -33,15 +32,13 @@
     "gray-matter": "^4.0.3",
     "js-yaml": "^4.1.0",
     "katex": "^0.16.25",
-    "kuromoji": "^0.1.2",
     "next": "^15.4.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-icons": "^5.5.0",
     "rehype-katex": "^7.0.1",
     "remark-gfm": "^4.0.1",
-    "remark-math": "^6.0.0",
-    "wanakana": "^5.3.1"
+    "remark-math": "^6.0.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.15",
